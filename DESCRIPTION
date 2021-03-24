@@ -1,0 +1,32 @@
+Package: ships
+Title: See most recent routes for a vessel
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Siddharth",
+           family = "Bhatia",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: A shiny app to visualize most recent route of a vessel on a map.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    knitr(== 1.30),
+    rmarkdown(== 2.6),
+    testthat (== 3.0.0),
+    pkgdown,
+    renv,
+    roxygen2,
+    pkgload,
+    devtools
+VignetteBuilder: knitr
+Imports: 
+    shiny (== 1.5.0),
+    shiny.semantic (== 0.4.2),
+    htmltools (== 0.5.1.1),
+    rlang (== 0.4.10),
+    processx (== 3.4.5)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Config/testthat/edition: 3
