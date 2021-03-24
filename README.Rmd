@@ -59,7 +59,3 @@ devtools::test(package.dir = ".")
 devtools::check()
 ```
 
-#### Build documentation and vignettes
-```r
-pkgdown::build_site()
-```

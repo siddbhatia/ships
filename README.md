@@ -24,7 +24,7 @@ R -e "remotes::install_local('ships')"
 ### Run the application
 
 ``` r
-run_app()
+ships::run_app()
 ```
 
 ### For developers
@@ -32,16 +32,11 @@ run_app()
 #### Restore renv
 
 ``` r
-renv::restore()
+renv::install()
+pkgload::load_all()
 ```
 
 #### Make changes and new installs
-
-#### Update renv for dependencies
-
-``` r
-renv::snapshot()
-```
 
 #### Document package
 
@@ -49,14 +44,14 @@ renv::snapshot()
 roxygen2::roxygenise(package.dir = ".")
 ```
 
+#### Test package
+
+``` r
+devtools::test(package.dir = ".")
+```
+
 #### Check before commit
 
 ``` r
 devtools::check()
-```
-
-#### Build documentation and vignettes
-
-``` r
-pkgdown::build_site()
 ```
