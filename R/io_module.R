@@ -96,7 +96,7 @@ io_module_ui <- function(id){
 
                                                             )
                                              ),
-                                         update = div(style="text-align:center;",
+                                         update = div(style="text-align:center;padding:10px",
                                                       br(),
                                                       action_button(NS(id,"update"), "Update",width = "100")
                                          )
