@@ -5,5 +5,5 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session ) {
-
+    io_module_server("io")
 }

@@ -19,14 +19,18 @@ Suggests:
     renv,
     roxygen2,
     pkgload,
-    devtools
+    devtools,
+    geosphere
 VignetteBuilder: knitr
 Imports: 
     shiny (== 1.5.0),
     shiny.semantic (== 0.4.2),
     htmltools (== 0.5.1.1),
     rlang (== 0.4.10),
-    processx (== 3.4.5)
+    processx (== 3.4.5),
+    leaflet (== 2.0.4.1),
+    dplyr (== 1.0.2),
+    glue (== 1.4.2)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Config/testthat/edition: 3

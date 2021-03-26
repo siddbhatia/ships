@@ -7,3 +7,5 @@
 ^app.R
 ^docs
 ^rsconnect
+^doc$
+^Meta$

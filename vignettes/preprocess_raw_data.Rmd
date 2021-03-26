@@ -1,0 +1,81 @@
+---
+title: "preprocess_raw_data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{preprocess_raw_data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r eval=F}
+library(ships)
+```
+
+### Download and read raw data
+
+Note: save the data in the `inst/extdata` folder.
+
+```{r eval=F}
+raw_data = read.csv(
+  system.file("extdata","ships.csv",package = 'ships',mustWork = TRUE),
+  header = T)
+```
+
+
+
+#### Check each ship belongs to only one type 
+
+```{r eval=F}
+nrow(unique(raw_data[,c("SHIP_ID","ship_type")])) == length(unique(raw_data[,c("SHIP_ID")]))
+```
+
+#### Get the longest and most recent movement between 2 consecutive records for a ship
+
+```{r eval=F}
+library(geosphere)
+longest_most_recent <- function(df){
+  return(
+    df %>%
+      mutate(DATETIME = lubridate::as_datetime(DATETIME)) %>%
+      arrange(DATETIME) %>%  
+      mutate(lag_LON = lag(LON), lag_LAT=lag(LAT), lag_dt = lag(DATETIME)) %>%
+      filter(!is.na(lag_LON)) %>%
+      rowwise() %>%
+      mutate(distance_covered = distm(c(LON, LAT), c(lag_LON, lag_LAT), fun = distHaversine)) %>%
+      arrange(desc(distance_covered), desc(DATETIME))  %>%
+      head(1)
+  )
+}
+# test longest_most_recent(sample_ship)
+```
+
+#### Remove ships which have just one observation and apply the function above
+```{r eval=F}
+single_record_ships <- raw_data %>%
+  group_by(SHIP_ID) %>%
+  summarise(counts = n()) %>%
+  filter(counts<=1) %>%
+  select(SHIP_ID) %>%
+  unlist() %>%
+  unname()
+
+processed_data <-raw_data %>%
+  filter(!(SHIP_ID %in% single_record_ships)) %>%
+  group_by(SHIP_ID)%>%
+  group_split() %>%
+  purrr::map_df(~longest_most_recent(.x))
+```
+
+
+#### Save data
+
+```{r eval=F}
+saveRDS(processed_data,file = "../inst/extdata/longest_most_recent.rds")
+```
