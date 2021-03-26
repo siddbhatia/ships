@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny.semantic grid grid_template action_button accordion
-#' @importFrom dplyr filter select %>%
+#' @importFrom dplyr filter select %>% mutate
 #' @importFrom shiny NS
 #' @importFrom leaflet leafletOutput renderLeaflet leaflet addMarkers addTiles
 #' @importFrom glue glue
