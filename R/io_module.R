@@ -33,7 +33,7 @@ io_module_ui <- function(id){
                     cols_width = c("auto")
                 )
                 ),
-                map_area = leafletOutput(NS(id,"main_data"),  height = "650"),
+                map_area = leafletOutput(NS(id,"main_data"),  height = "600"),
                 text_inputs_area =
                     grid(
                         grid_template(default = list(
@@ -46,7 +46,7 @@ io_module_ui <- function(id){
                         )),
                         voyage_details = div(class = "ui raised segment",
                                              div(a(class="ui green ribbon label", "Voyage Details"),
-                                                 h4("Details of longest most recent voyage by the selected vessel"),
+                                                 h5("Details of longest most recent voyage by the selected vessel"),
                                                  textOutput(NS(id,"vessel_text")),
                                                  textOutput(NS(id,"vessel_type_text")),
                                                  textOutput(NS(id,"vessel_distance_text")),
@@ -62,40 +62,41 @@ io_module_ui <- function(id){
                                                     c("input_dds"),
                                                     c("update")
                                                  ),
-                                                 rows_height = c("auto"),
-                                                 cols_width = c("50%","50%")
+                                                 rows_height = c("40%","60%"),
+                                                 cols_width = c("auto")
                                              )
                                          ),
-                                         input_dds = div(style="text-align:center;padding:1px",
+                                         input_dds = div(style="text-align:center;",
+                                                         h5("Please select vessel details and press Update"),
                                                          grid(
-                                             grid_template(
-                                                 default = list(
-                                                     areas = cbind(
-                                                         c("vessel_type"),
-                                                         c("vessel_name")),
-                                                     rows_height = c("50%","50%"),
-                                                     cols_width = c("auto")
-                                                 )
-                                             ),
-                                             vessel_type = div(style="text-align:left;padding:15px",
-                                                               selectInput(NS(id,"vessel_type_dd"),
-                                                                           label ="Vessel Type",
-                                                                           choices=get_ships_options("data")["ship_type"],
-                                                                           multiple = F,
-                                                                           selectize = T,
-                                                                           width = "200")
-                                             ),
-                                             vessel_name = div(style="text-align:left;padding:15px",
-                                                               selectInput(NS(id,"vessel_name_dd"),
-                                                                           label ="Vessel Name",
-                                                                           choices=get_ships_options("data")["SHIPNAME"],
-                                                                           multiple = F,
-                                                                           selectize = T,
-                                                                           width = "200"))
+                                                             grid_template(
+                                                                 default = list(
+                                                                     areas = cbind(
+                                                                         c("vessel_type"),
+                                                                         c("vessel_name")),
+                                                                     rows_height = c( "auto"),
+                                                                     cols_width = c("50%","50%")
+                                                                 )
+                                                            ),
+                                                            vessel_type = div(style="text-align:left;padding:1px",
+                                                                               selectInput(NS(id,"vessel_type_dd"),
+                                                                                           label ="Vessel Type",
+                                                                                           choices=get_ships_options("data")["ship_type"],
+                                                                                           multiple = F,
+                                                                                           selectize = T,
+                                                                                           width = "300")
+                                                             ),
+                                                             vessel_name = div(style="text-align:left;padding:1px",
+                                                                               selectInput(NS(id,"vessel_name_dd"),
+                                                                                           label ="Vessel Name",
+                                                                                           choices=get_ships_options("data")["SHIPNAME"],
+                                                                                           multiple = F,
+                                                                                           selectize = T,
+                                                                                           width = "300"))
 
-                                             )
+                                                            )
                                              ),
-                                         update = div(style="text-align:center;padding:1px",
+                                         update = div(style="text-align:center;",
                                                       br(),
                                                       action_button(NS(id,"update"), "Update",width = "100")
                                          )
