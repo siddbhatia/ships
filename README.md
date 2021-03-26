@@ -11,20 +11,22 @@ map.
 To install from github
 
 ``` r
-remotes::install_github('siddbhatia/ships')
+remotes::install_github('siddbhatia/ships', build_vignettes=TRUE)
 ```
 
 To install locally
 
 ``` bash
 git clone git@github.com:siddbhatia/ships.git
-R -e "remotes::install_local('ships')"
+R -e "remotes::install_local('ships', build_vignettes=TRUE)"
 ```
+
+Refer to logic for pre-processing raw data in the vignettes.
 
 ### Run the application
 
 ``` r
-ships::run_app(data = readRDS(ships::app_sys("extdata/longest_most_recent.rds")))
+ships::run_app(data = readRDS(system.file("extdata","longest_most_recent.rds", package = "ships")))
 ```
 
 ### For developers
