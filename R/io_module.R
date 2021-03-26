@@ -33,7 +33,7 @@ io_module_ui <- function(id){
                     cols_width = c("auto")
                 )
                 ),
-                map_area = leafletOutput(NS(id,"main_data"),  height = "670"),
+                map_area = leafletOutput(NS(id,"main_data"),  height = "650"),
                 text_inputs_area =
                     grid(
                         grid_template(default = list(
@@ -56,20 +56,28 @@ io_module_ui <- function(id){
                                              ),
                         inputs = div(class = "ui raised segment",
                                      div(a(class="ui blue ribbon label", "Inputs"),
-                                         grid(
+                                         grid(grid_template(
+                                             default = list(
+                                                 areas = rbind(
+                                                    c("input_dds"),
+                                                    c("update")
+                                                 ),
+                                                 rows_height = c("auto"),
+                                                 cols_width = c("50%","50%")
+                                             )
+                                         ),
+                                         input_dds = div(style="text-align:center;padding:1px",
+                                                         grid(
                                              grid_template(
                                                  default = list(
                                                      areas = cbind(
                                                          c("vessel_type"),
-                                                         c("vessel_name"),
-                                                         c("update")
-
-                                                     ),
-                                                     rows_height = c("40%","40%","20%"),
+                                                         c("vessel_name")),
+                                                     rows_height = c("50%","50%"),
                                                      cols_width = c("auto")
                                                  )
                                              ),
-                                             vessel_type = div(style="text-align:left;padding:0px",
+                                             vessel_type = div(style="text-align:left;padding:15px",
                                                                selectInput(NS(id,"vessel_type_dd"),
                                                                            label ="Vessel Type",
                                                                            choices=get_ships_options("data")["ship_type"],
@@ -77,18 +85,21 @@ io_module_ui <- function(id){
                                                                            selectize = T,
                                                                            width = "200")
                                              ),
-                                             vessel_name = div(style="text-align:left;padding:0px",
+                                             vessel_name = div(style="text-align:left;padding:15px",
                                                                selectInput(NS(id,"vessel_name_dd"),
                                                                            label ="Vessel Name",
                                                                            choices=get_ships_options("data")["SHIPNAME"],
                                                                            multiple = F,
                                                                            selectize = T,
-                                                                           width = "200")),
-                                             update = div(style="text-align:center;padding:1px",
-                                                          br(),
-                                                          action_button(NS(id,"update"), "Update",width = "100")
+                                                                           width = "200"))
+
                                              )
+                                             ),
+                                         update = div(style="text-align:center;padding:1px",
+                                                      br(),
+                                                      action_button(NS(id,"update"), "Update",width = "100")
                                          )
+                                     )
 
                                      )
 
