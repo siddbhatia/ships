@@ -24,7 +24,7 @@ R -e "remotes::install_local('ships')"
 ### Run the application
 
 ``` r
-ships::run_app(data = readRDS(app_sys("extdata/longest_most_recent.rds")))
+ships::run_app(data = readRDS(ships::app_sys("extdata/longest_most_recent.rds")))
 ```
 
 ### For developers
