@@ -57,7 +57,7 @@ io_module_ui <- function(id){
                          )
                      )
         ),
-        menu = div(style="text-align:center;",
+        menu = div(
             grid(
                 grid_template(
                     default = list(
@@ -65,13 +65,15 @@ io_module_ui <- function(id){
                             c("map_area"),
                             c("text_area")
                             ),
-                    rows_height = c("70%","30%"),
+                    rows_height = c("90%","10%"),
                     cols_width = c("auto")
                 )
                 ),
-                map_area = leafletOutput(NS(id,"main_data"),),
+                map_area = leafletOutput(NS(id,"main_data"),  height = "650px"),
                 text_area = div(class = "ui raised segment",
-                                textOutput(NS(id,"main_text"))
+                                div(a(class="ui green ribbon label", "Voyage Details"),
+                                    textOutput(NS(id,"main_text"))
+                                )
                 )
 
             )
@@ -112,7 +114,7 @@ io_module_server <- function(id){
             voyage <- get_ships_options("data") %>%
                 filter(ship_type==input$vessel_type_dd && SHIPNAME==input$vessel_name_dd) %>%
                 select(ship_type, SHIPNAME, SHIP_ID, distance_covered, LAT, LON, lag_LAT, lag_LON)
-            glue("Vessel: {voyage$SHIPNAME}(id:{voyage$SHIP_ID}) sailed a distance of {voyage$distance_covered} meters from ({voyage$lag_LAT},{voyage$lag_LON}) to ({voyage$LAT},{voyage$LON}).")
+            glue("Vessel: {voyage$SHIPNAME}(id:{voyage$SHIP_ID}) of type {voyage$ship_type}, sailed a distance of {round(voyage$distance_covered,2)} meters from ({voyage$lag_LAT},{voyage$lag_LON}) to ({voyage$LAT},{voyage$LON}), as its longest voyage between 2 consecutive data observations.")
 
         }, ignoreNULL = FALSE)
 
