@@ -3,7 +3,10 @@
 #' @param input,output,session Internal parameters for {shiny}.
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @importFrom zeallot %<-%
 #' @noRd
 app_server <- function(input, output, session ) {
-    io_module_server("io")
+    c(points,voyage) %<-% inputShipServer("Vessels")
+    outputVoyageTextServer('TextVoyage',voyage)
+    outputVoyageMapServer('MapVoyage',points)
 }

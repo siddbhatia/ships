@@ -11,9 +11,42 @@ app_ui <- function(request) {
         semanticPage(
             tags$head(tags$style(type = "text/css",paste0(".selectize-dropdown {bottom: 100% !important; top:auto!important; }}"))),
             title = "Ships",
-            io_module_ui("io")
-
+            grid(
+                grid_template(default = list(
+                    areas = rbind(
+                        c("menu")
+                    ),
+                    rows_height = c("100%"),
+                    cols_width = c("auto")
+                )),
+                menu = div(
+                    grid(
+                        grid_template(
+                            default = list(
+                                areas = rbind(
+                                    c("map_area"),
+                                    c("text_inputs_area")
+                                ),
+                                rows_height = c("85%","15%"),
+                                cols_width = c("auto")
+                            )
+                        ),
+                        map_area = outputVoyageMapUI('MapVoyage'),
+                        text_inputs_area = grid(
+                            grid_template(default = list(
+                                areas = cbind(
+                                    c("voyage_details"),
+                                    c("inputs")
+                                ),
+                                rows_height = c("auto"),
+                                cols_width = c("50%","50%")
+                            )),
+                            voyage_details = outputVoyageTextUI('TextVoyage'),
+                            inputs = inputShipUI("Vessels")
+                        )
+                    )
+                )
+            )
         )
     )
-
 }

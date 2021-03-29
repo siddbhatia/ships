@@ -31,6 +31,8 @@ Refer to logic for pre-processing raw data in the vignettes.
 ###  Run the application 
 
 ```{r eval=FALSE}
+roxygen2::roxygenise(package.dir = ".")
+pkgload::load_all()
 ships::run_app(data = readRDS(system.file("extdata","longest_most_recent.rds", package = "ships")))
 ```
 
